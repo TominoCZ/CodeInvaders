@@ -111,9 +111,11 @@ namespace CodeInvaders
             entity.VelX = (1 - (float)_random.NextDouble() * 2) * 60;
             entity.PosY -= (float)_random.NextDouble() * 128;
             entity.Size = size;
-            entity.OnHit = () =>
+            entity.OnTouch = () =>
             {
-                _game.Health -= 50;
+                entity.Health = 0; //TODO
+
+                _game.PlayerHealth -= 50;
 
                 _game.Particles.Add(new ParticleExplosion(entity.PosX, entity.PosY));
             };

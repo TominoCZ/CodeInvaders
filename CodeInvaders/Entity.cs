@@ -18,7 +18,7 @@ namespace CodeInvaders
 
         public string Icon { get; set; }
 
-        public Action OnHit { get; set; }
+        public Action OnTouch { get; set; }
 
         public Entity(string icon, float posX, float velX = 0)
         {

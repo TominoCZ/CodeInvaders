@@ -44,7 +44,7 @@ namespace CodeInvaders
                 _maxHealth = Math.Max(1, value);
             }
         }
-        public float Health
+        public float PlayerHealth
         {
             get => _health;
             set
@@ -118,7 +118,7 @@ namespace CodeInvaders
             IsRunning = true;
             PlayerX = Window.ClientSize.Width / 2;
             PlayerY = Window.ClientSize.Height - 32;
-            Health = MaxHealth;
+            PlayerHealth = MaxHealth;
             IsRunning = false;
 
             Entities.Clear();
@@ -233,7 +233,7 @@ namespace CodeInvaders
 
             OnPaint?.Invoke(g, delta);
 
-            if (IsRunning && Health == 0)
+            if (IsRunning && PlayerHealth == 0)
             {
                 IsRunning = false;
 
