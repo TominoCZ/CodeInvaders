@@ -79,7 +79,7 @@ namespace CodeInvaders
                 if (!IsRunning)
                     return;
 
-                _playerY = value;
+                _playerY = Math.Min(Window.ClientSize.Height, Math.Max(0, value));
             }
         }
         public int PlayerSize

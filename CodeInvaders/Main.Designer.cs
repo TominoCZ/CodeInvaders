@@ -37,7 +37,7 @@
             // starTimer
             // 
             this.starTimer.Enabled = true;
-            this.starTimer.Interval = 250;
+            this.starTimer.Interval = 150;
             this.starTimer.Tick += new System.EventHandler(this.starTimer_Tick);
             // 
             // btnStart

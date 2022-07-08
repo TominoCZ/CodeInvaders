@@ -19,14 +19,14 @@ namespace CodeInvaders
         public ParticleStar(float posX) : base(posX, 0)
         {
             var r = (float)_random.NextDouble();
-            var mult = r * -0.2f - 0.05f;
+            var mult = r * -0.25f - 0.1f;
             var val = (int)(255 * Math.Pow(1 + mult, 4));
 
             VelY = 1 + mult;
-            VelX = (0.25f - r * 0.5f) *5;
+            VelX = (0.25f - r * 0.5f) * 4 * 2;
 
-            _width = (float)Math.Pow(1 + mult, 2);
-            _length = _width * 275;
+            _width = (float)Math.Pow(1 + mult, 4) * 2;
+            _length = _width * 150;
 
             var brush = new SolidBrush(Color.FromArgb(val, val, val));
             _pen = new Pen(brush, _width);
