@@ -114,6 +114,8 @@ namespace CodeInvaders
             entity.OnHit = () =>
             {
                 _game.Health -= 50;
+
+                _game.Particles.Add(new ParticleExplosion(entity.PosX, entity.PosY));
             };
             _game.Entities.Add(entity);
         }
