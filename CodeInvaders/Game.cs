@@ -26,8 +26,8 @@ namespace CodeInvaders
 
         private Thread _paintThread;
 
-        private float _maxHealth = 100;
-        private float _health = 100;
+        private int _maxHealth = 100;
+        private int _health = 100;
         private float _speed = 600;
         private float _playerX = 0;
         private float _playerY = 0;
@@ -36,7 +36,7 @@ namespace CodeInvaders
         public bool IsDisposed { get; private set; }
         public bool IsRunning { get; private set; }
 
-        public float MaxHealth
+        public int PlayerMaxHealth
         {
             get => _maxHealth;
             set
@@ -44,7 +44,7 @@ namespace CodeInvaders
                 _maxHealth = Math.Max(1, value);
             }
         }
-        public float PlayerHealth
+        public int PlayerHealth
         {
             get => _health;
             set
@@ -118,7 +118,7 @@ namespace CodeInvaders
             IsRunning = true;
             PlayerX = Window.ClientSize.Width / 2;
             PlayerY = Window.ClientSize.Height - 32;
-            PlayerHealth = MaxHealth;
+            PlayerHealth = PlayerMaxHealth;
             IsRunning = false;
 
             Entities.Clear();
@@ -228,8 +228,34 @@ namespace CodeInvaders
             Particles.Paint(g, delta);
             Entities.Paint(g, delta);
 
+            var p = Math.Floor(PlayerHealth / (double)PlayerMaxHealth / 0.25 + 0.5) * 0.25 * 100;
+
+            var icon = "player_";
+
+            if (p > 75)
+            {
+                icon += 100;
+            }
+            else if (p > 50)
+            {
+                icon += 75;
+            }
+            else if (p >= 25)
+            {
+                icon += 50;
+            }
+            else if (p > 0)
+            {
+                icon += 25;
+            }
+            else
+            {
+                icon += 0;
+            }
+
+
             g.DrawImage(TextureManager.Get("shadow"), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
-            g.DrawImage(TextureManager.Get("player"), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
+            g.DrawImage(TextureManager.Get(icon), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
 
             OnPaint?.Invoke(g, delta);
 

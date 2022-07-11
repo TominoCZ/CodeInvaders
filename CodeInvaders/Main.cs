@@ -18,6 +18,8 @@ namespace CodeInvaders
         private bool _left;
         private bool _right;
 
+        private int _score;
+
         public Main()
         {
             InitializeComponent();
@@ -99,27 +101,72 @@ namespace CodeInvaders
             _game.Start();
 
             btnStart.Visible = false;
+
+            UpdateTitle();
         }
 
         private void entityTimer_Tick(object sender, EventArgs e)
         {
             if (!_game.IsRunning)
                 return;
-
             var size = 64;
-            var entity = new Entity($"enemy{_random.Next(1, 6)}", size / 2 + (float)_random.NextDouble() * (ClientSize.Width - size));
-            entity.VelX = (1 - (float)_random.NextDouble() * 2) * 60;
-            entity.PosY -= (float)_random.NextDouble() * 128;
-            entity.Size = size;
-            entity.OnTouch = () =>
+
+            Entity entity = null;
+
+            if (_game.PlayerHealth <= 75 && _random.NextDouble() >= 0.9)
             {
-                entity.Health = 0; //TODO
+                entity = new Entity($"heal", size / 2 + (float)_random.NextDouble() * (ClientSize.Width - size));
+                entity.VelX = (1 - (float)_random.NextDouble() * 2) * 60;
+                entity.PosY -= (float)_random.NextDouble() * 128;
+                entity.Size = size;
+                entity.OnTouch = () =>
+                {
+                    entity.Health = 0; //TODO
 
-                _game.PlayerHealth -= 50;
+                    _game.PlayerHealth += 25;
+                };
+            }
+            else
+            {
+                if (_random.NextDouble() >= 0.85)
+                {
+                    entity = new Entity($"money", size / 2 + (float)_random.NextDouble() * (ClientSize.Width - size));
+                    entity.VelX = (1 - (float)_random.NextDouble() * 2) * 60;
+                    entity.PosY -= (float)_random.NextDouble() * 128;
+                    entity.Size = size;
+                    entity.OnTouch = () =>
+                    {
+                        entity.Health = 0; //TODO
 
-                _game.Particles.Add(new ParticleExplosion(entity.PosX, entity.PosY));
-            };
-            _game.Entities.Add(entity);
+                        _score += 10;
+
+                        UpdateTitle();
+                    };
+                }
+                else
+                {
+                    entity = new Entity($"enemy{_random.Next(1, 7)}", size / 2 + (float)_random.NextDouble() * (ClientSize.Width - size));
+                    entity.VelX = (1 - (float)_random.NextDouble() * 2) * 60;
+                    entity.PosY -= (float)_random.NextDouble() * 128;
+                    entity.Size = size;
+                    entity.OnTouch = () =>
+                    {
+                        entity.Health = 0; //TODO
+
+                        _game.PlayerHealth -= 50;
+
+                        _game.Particles.Add(new ParticleExplosion(entity.PosX, entity.PosY));
+                    };
+                }
+            }
+
+            if (entity != null)
+                _game.Entities.Add(entity);
+        }
+
+        private void UpdateTitle()
+        {
+            Text = $"CodeInvaders (score: {_score})";
         }
     }
 }
