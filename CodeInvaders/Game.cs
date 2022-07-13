@@ -253,7 +253,6 @@ namespace CodeInvaders
                 icon += 0;
             }
 
-
             g.DrawImage(TextureManager.Get("shadow"), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
             g.DrawImage(TextureManager.Get(icon), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
 
