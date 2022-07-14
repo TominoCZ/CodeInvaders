@@ -124,6 +124,7 @@ namespace CodeInvaders
                     entity.Health = 0; //TODO
 
                     _game.PlayerHealth += 25;
+                    _game.SoundPlayer.Play("heal");
                 };
             }
             else
@@ -141,6 +142,8 @@ namespace CodeInvaders
                         _score += 10;
 
                         UpdateTitle();
+
+                        _game.SoundPlayer.Play("coin");
                     };
                 }
                 else
@@ -156,6 +159,7 @@ namespace CodeInvaders
                         _game.PlayerHealth -= 50;
 
                         _game.Particles.Add(new ParticleExplosion(entity.PosX, entity.PosY));
+                        _game.SoundPlayer.Play("explosion");
                     };
                 }
             }

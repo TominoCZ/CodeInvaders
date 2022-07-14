@@ -42,9 +42,9 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(12, 12);
+            this.btnStart.Location = new System.Drawing.Point(212, 360);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(760, 46);
+            this.btnStart.Size = new System.Drawing.Size(356, 46);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "START";
             this.btnStart.UseVisualStyleBackColor = true;

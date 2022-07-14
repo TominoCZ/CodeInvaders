@@ -14,6 +14,7 @@ namespace CodeInvaders
     public class Game : IDisposable
     {
         public Form Window;
+        public SoundPlayer SoundPlayer;
         public ParticleManager Particles;
         public EntityManager Entities;
 
@@ -94,6 +95,7 @@ namespace CodeInvaders
         public Game(Form form)
         {
             Window = form;
+            SoundPlayer = new SoundPlayer();
             Particles = new ParticleManager(this);
             Entities = new EntityManager(this);
 
@@ -233,25 +235,15 @@ namespace CodeInvaders
             var icon = "player_";
 
             if (p > 75)
-            {
                 icon += 100;
-            }
             else if (p > 50)
-            {
                 icon += 75;
-            }
             else if (p >= 25)
-            {
                 icon += 50;
-            }
             else if (p > 0)
-            {
                 icon += 25;
-            }
             else
-            {
                 icon += 0;
-            }
 
             g.DrawImage(TextureManager.Get("shadow"), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
             g.DrawImage(TextureManager.Get(icon), PlayerX - PlayerSize / 2f, PlayerY - PlayerSize / 2f, PlayerSize, PlayerSize);
@@ -269,6 +261,8 @@ namespace CodeInvaders
         public void Dispose()
         {
             IsDisposed = true;
+
+            SoundPlayer.Dispose();
 
             _paintThread.Abort();
         }
